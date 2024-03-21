@@ -8,7 +8,13 @@ function App() {
   return (
     <div>
       {categories.map((category) => {
-        return <Row title={category.title}/>
+        return <Row
+        key={category.name}
+        name={category.name} 
+        title={category.title}
+        isLarge={category.isLarge}
+        path={category.path}
+        />
       })}
     </div>
   );
