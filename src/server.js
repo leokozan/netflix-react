@@ -11,6 +11,11 @@ app.post('/login',(re,res)=>{
     res.send(sessionID)
 })
 
+app.post('/login',(req,res)=>{
+    let email = req.params.email
+    let senha = req.params.senha
+})
+
 app.post('/test',re,res=>{
     let sessionID = req.params.sessionID
 
