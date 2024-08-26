@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './Row.css'
-import {getData} from '../../api'
 import { useState } from 'react'
+import { getData } from '../../api'
 
 export default function Row({title, path, isLarge}) {
     const[filmes, setFilmes] = useState()
@@ -23,8 +23,7 @@ export default function Row({title, path, isLarge}) {
             setFilmes(data?.results)
         })
 
-
-    }, [])
+    },)
 
     return (
         <div className='row-container'>
