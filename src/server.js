@@ -1,6 +1,7 @@
 var express = require('express');
 const session = require('express-session');
 var cors = require('cors');
+const axios = require('axios');
 const jwt = require("jsonwebtoken");
 const DNS = 'https://api.themoviedb.org/3'
 const API_KEY = 'b5e4e9d884cf44a5aea758a85d305554'
@@ -18,7 +19,7 @@ var port = process.env.PORT || 5000;
 
 app.use(cors());
 
-app.get('/movies/popular', async (req, res) => {
+app.get('/movies/popular', async(req, res) => {
     try {
       const response = await axios.get(`${DNS}/trending/all/week?api_key=${API_KEY}&language=pt-BR`);
       res.json(response.data);
