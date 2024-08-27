@@ -1,4 +1,4 @@
-const API_KEY = '06dea13bc993ac3794ac898a90212641'
+const API_KEY = ''
 const DNS = 'https://api.themoviedb.org/3'
 
 export const categories = [
