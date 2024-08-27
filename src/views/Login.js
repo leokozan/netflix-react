@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './Login.css';
 import { TextField,Container, Box, Button, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [aviso,SetAviso] = useState(null)
+    const navigate = useNavigate();
     const handleUserChange = (event) => {
         setUsername(event.target.value);
       };
@@ -18,16 +20,20 @@ function Login() {
         }else{
             try {
                 console.log(username,password)
-                const response  = await fetch('http://localhost:5000/fazerLogin',{
+                const response  = await fetch('http://localhost:5000/login',{
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ username, password }) 
                 })
-                console.log(response)
+                const data = await response.json()
+                if(response.ok){
+                  localStorage.setItem('sessionID', data.sessionID);
+                  navigate('/home');
+                }
             } catch (error) {
-                console.log(error)
+              SetAviso('Email ou senha incorreta.')
             }
         }
     }
