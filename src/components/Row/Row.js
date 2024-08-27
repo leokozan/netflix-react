@@ -19,7 +19,7 @@ export default function Row({title, path, isLarge}) {
         let consulta = fetchData()
         
         consulta.then((data)=>{
-            console.log(data?.results)
+            // console.log(data?.results)
             setFilmes(data?.results)
         })
 

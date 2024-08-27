@@ -1,6 +1,5 @@
-const API_KEY = ''
+const API_KEY = 'b5e4e9d884cf44a5aea758a85d305554'
 const DNS = 'https://api.themoviedb.org/3'
-
 export const categories = [
     {
         name: "trending",
@@ -26,18 +25,6 @@ export const categories = [
         path: "/discover/tv?api_key="+API_KEY+"&with_genres=35",
         isLarge: false,
     },  
-    {
-        name: "romances",
-        title: "Romances",
-        path: "/discover/tv?api_key="+API_KEY+"&with_genres=10749",
-        isLarge: false,
-    },                
-    {
-        name: "documentaries",
-        title: "Documentários",
-        path: "/discover/tv/api_key="+API_KEY+"&with_genres=99",
-        isLarge: false, 
-    }
 ]
 
 export const getData = async(path) =>{

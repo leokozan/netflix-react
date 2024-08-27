@@ -14,7 +14,6 @@ function Banner() {
             const data = await getData(netflixOriginalsCategory.path)
             const movies = data?.results
             const randomIndex = Math.floor(Math.random() * movies.length)
-            console.log(movies[randomIndex])
             setMovie(movies[randomIndex])
 
         }catch (error) {
