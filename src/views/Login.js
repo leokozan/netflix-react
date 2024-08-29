@@ -29,7 +29,6 @@ function Login() {
                 })
                 const data = await response.json()
                 if(response.ok){
-                  localStorage.setItem('sessionID', data.sessionID);
                   navigate('/home');
                 }
             } catch (error) {

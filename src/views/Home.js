@@ -3,7 +3,11 @@ import { categories } from '../api';
 import Row from '../components/Row/Row';
 import Banner from '../components/Banner/Banner';
 import Nav from '../components/Nav/Nav';
+import { Button } from '@mui/material';
 function Home() {
+  function teste(){
+    console.log(localStorage.getItem('sessionID'))
+  }
   return (
     <div>
     <Nav/>

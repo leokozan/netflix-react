@@ -4,19 +4,11 @@ import Home from './views/Home';
 import Login from './views/Login';
 
 function App() {
-  const isAuthenticated = () => {
-    return !!localStorage.getItem('sessionID');
-};
   return (
     <Router>
       <Routes>
         <Route path="/telaLogin" element={<Login />} />
-        <Route
-          path="/home"
-          element={
-            isAuthenticated() ? <Home /> :  <Navigate to="/telaLogin"/>
-          }
-        />
+        <Route path="/home" element={<Home/>}/>
       </Routes>
     </Router>
   );

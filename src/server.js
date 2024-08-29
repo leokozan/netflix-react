@@ -30,6 +30,22 @@ var dados = {
 const generateToken = (userID) => {
     return jwt.sign({userID}, secretKey, { expiresIn: 60 * 60});
 };
+
+function verifyJWT(req, res, next){
+    console.log('verify ', req.body)
+    let token = req.body.sessionID
+    if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+    
+    jwt.verify(token, secretKey, function(err, decoded) {
+      if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+      
+      // se tudo estiver ok, salva na sessão para uso posterior
+      req.session.usuarioID = decoded.userID;
+      console.log('verify: ', req.session)
+      next();
+    });
+}
+
 function findUserByID(userID){
     let encontrado = {}
     
@@ -76,6 +92,17 @@ app.post('/logout', (req, res) => {
         res.status(200).json({ message: 'Logout successful.' });
     });
 });
+
+app.post('/test', verifyJWT, (req, res, next)=>{
+    const sessionData = req.session;
+    console.log('test ', sessionData)
+
+    //com id correto posso buscar o resto das informações do usuario
+    let usuario = findUserByID(sessionData.usuarioID)
+    console.log(usuario)
+    res.send(usuario.nome)
+})
+
 // Rotas para os filmes
 
 app.get('/movies/popular', async(req, res) => {
