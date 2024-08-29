@@ -21,6 +21,7 @@ function Nav () {
         } catch (err) {
             console.error('Failed to logout:', err);
         }
+        localStorage.removeItem('sessionID');
         navigate('/telaLogin');
       };
     return (

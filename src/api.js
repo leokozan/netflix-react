@@ -1,8 +1,7 @@
 const axios = require('axios');
-const DNS = 'http://localhost:5000'
-const IdSession = localStorage.getItem('sessionID'); // Recupera o token do localStorage
-
+const DNS = 'http://localhost:5000' // Recupera o token do localStorage
 export const categories = [
+    
     {
         name: "trending",
         title: "Em Alta",
@@ -29,18 +28,18 @@ export const categories = [
     },  
 ]
 
-export const getData = async(path) => {
+export const getData = async (path) => {
+    const sessionID = localStorage.getItem('sessionID');
     try {
         let URI = DNS + path;
 
         let response = await fetch(URI, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json', // Define o tipo de conteúdo como JSON
-            },
-            body: JSON.stringify({ sessionID: IdSession }) // Converte o corpo para JSON
+                'Authorization': `Bearer ${sessionID}` // Adiciona o token no header Authorization
+            }
         });
-
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
