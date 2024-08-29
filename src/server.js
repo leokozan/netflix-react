@@ -19,15 +19,6 @@ var port = process.env.PORT || 5000;
 
 app.use(cors());
 
-app.get('/movies/popular', async(req, res) => {
-    try {
-      const response = await axios.get(`${DNS}/trending/all/week?api_key=${API_KEY}&language=pt-BR`);
-      res.json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: 'Erro ao buscar filmes populares' });
-    }
-  });
-
 var dados = {
     usuarios: [
         {id: '1', nome:'Teste da Silva Junior', email: 'teste@teste.com', senha: '1234', idade: '16'},   
@@ -85,7 +76,43 @@ app.post('/logout', (req, res) => {
         res.status(200).json({ message: 'Logout successful.' });
     });
 });
+// Rotas para os filmes
 
+app.get('/movies/popular', async(req, res) => {
+    try {
+      const response = await axios.get(`${DNS}/trending/all/week?api_key=${API_KEY}&language=pt-BR`);
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar filmes populares' });
+    }
+  });
+  
+app.get('/movies/netflixOriginals', async(req, res) => {
+    try {
+      const response = await axios.get(`${DNS}/discover/tv?api_key=${API_KEY}&with_networks=213`);
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar filmes populares' });
+    }
+  });
+  
+app.get('/movies/topRated', async(req, res) => {
+    try {
+      const response = await axios.get(`${DNS}/movie/top_rated?api_key=${API_KEY}&language=pt-BR`);
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar filmes populares' });
+    }
+  });
+  
+app.get('/movies/comedy', async(req, res) => {
+    try {
+      const response = await axios.get(`${DNS}/discover/tv?api_key=${API_KEY}&with_genres=35`);
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar filmes populares' });
+    }
+  });
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
