@@ -29,6 +29,8 @@ function Login() {
                 })
                 const data = await response.json()
                 if(response.ok){
+                  localStorage.setItem('sessionID', data.sessionID);
+                  console.log(localStorage.getItem('sessionID'));
                   navigate('/home');
                 }
             } catch (error) {

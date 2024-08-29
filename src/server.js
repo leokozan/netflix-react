@@ -32,7 +32,6 @@ const generateToken = (userID) => {
 };
 
 function verifyJWT(req, res, next){
-    console.log('verify ', req.body)
     let token = req.body.sessionID
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
     
@@ -41,7 +40,6 @@ function verifyJWT(req, res, next){
       
       // se tudo estiver ok, salva na sessão para uso posterior
       req.session.usuarioID = decoded.userID;
-      console.log('verify: ', req.session)
       next();
     });
 }
@@ -50,13 +48,23 @@ function findUserByID(userID){
     let encontrado = {}
     
     dados.usuarios.forEach((usuario)=>{
-        console.log(usuario.id, userID)
         if(usuario.id==userID){
             encontrado = usuario
         }
     })
     
     return encontrado
+}
+function findIdadeByID(userID){
+    let idade = {}
+    
+    dados.usuarios.forEach((usuario)=>{
+        if(usuario.id==userID){
+            idade = usuario.idade
+        }
+    })
+    
+    return idade
 }
 app.post('/login', (req, res, next)=>{
 
@@ -105,7 +113,10 @@ app.post('/test', verifyJWT, (req, res, next)=>{
 
 // Rotas para os filmes
 
-app.get('/movies/popular', async(req, res) => {
+app.post('/movies/popular',verifyJWT, async(req, res) => {
+    const sessionData = req.session;
+    let usuario = findIdadeByID(sessionData.usuarioID)
+    console.log(usuario)
     try {
       const response = await axios.get(`${DNS}/trending/all/week?api_key=${API_KEY}&language=pt-BR`);
       res.json(response.data);
@@ -114,7 +125,7 @@ app.get('/movies/popular', async(req, res) => {
     }
   });
   
-app.get('/movies/netflixOriginals', async(req, res) => {
+app.post('/movies/netflixOriginals', verifyJWT,async(req, res) => {
     try {
       const response = await axios.get(`${DNS}/discover/tv?api_key=${API_KEY}&with_networks=213`);
       res.json(response.data);
@@ -123,7 +134,7 @@ app.get('/movies/netflixOriginals', async(req, res) => {
     }
   });
   
-app.get('/movies/topRated', async(req, res) => {
+app.post('/movies/topRated',verifyJWT, async(req, res) => {
     try {
       const response = await axios.get(`${DNS}/movie/top_rated?api_key=${API_KEY}&language=pt-BR`);
       res.json(response.data);
@@ -132,7 +143,7 @@ app.get('/movies/topRated', async(req, res) => {
     }
   });
   
-app.get('/movies/comedy', async(req, res) => {
+app.post('/movies/comedy',verifyJWT, async(req, res) => {
     try {
       const response = await axios.get(`${DNS}/discover/tv?api_key=${API_KEY}&with_genres=35`);
       res.json(response.data);

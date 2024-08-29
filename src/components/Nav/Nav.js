@@ -17,7 +17,7 @@ function Nav () {
       };
       const handleLogoute = async () =>{
         try {
-            await fetch('/logout', { method: 'POST' }); 
+            await fetch('http://localhost:5000/logout', { method: 'POST' }); 
         } catch (err) {
             console.error('Failed to logout:', err);
         }
